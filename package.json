@@ -1,6 +1,7 @@
 {
   "name": "swc-plugin-nossr",
   "version": "0.1.0",
+  "packageManager": "pnpm@8.15.6",
   "description": "swc plugin optimize for NoSSR components",
   "keywords": [
     "swc-plugin",
