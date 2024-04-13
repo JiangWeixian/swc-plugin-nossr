@@ -1,5 +1,5 @@
 # swc-plugin-nossr
-> Optimize <NoSSR /> component during ssr build stage.
+> Optimize `<NoSSR />` component during ssr build stage.
 
 ## usage
 
