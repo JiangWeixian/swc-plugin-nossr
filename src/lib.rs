@@ -1,9 +1,10 @@
 use swc_core::ecma::{
-    ast::Program, visit::{as_folder, FoldWith}
+    ast::Program,
+    visit::{as_folder, FoldWith},
 };
 use swc_core::plugin::{plugin_transform, proxies::TransformPluginProgramMetadata};
-mod no_ssr_visitor;
-use no_ssr_visitor::NoSSRVisitor;
+mod no_ssr;
+use no_ssr::NoSSRVisitor;
 
 /// An example plugin function with macro support.
 /// `plugin_transform` macro interop pointers into deserialized structs, as well
@@ -26,12 +27,13 @@ pub fn process_transform(program: Program, _metadata: TransformPluginProgramMeta
 }
 #[cfg(test)]
 mod test {
-    use swc_core::ecma::{
-        ast::Program, parser::EsConfig, transforms::testing::test_inline, visit::{as_folder, FoldWith}
-    };
     use swc_core::ecma::parser::Syntax;
+    use swc_core::ecma::{parser::EsConfig, transforms::testing::test_inline, visit::as_folder};
     test_inline!(
-        Syntax::Es(EsConfig { jsx: true, ..Default::default() }),
+        Syntax::Es(EsConfig {
+            jsx: true,
+            ..Default::default()
+        }),
         |_| as_folder(super::NoSSRVisitor),
         boo,
         // Input codes
