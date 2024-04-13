@@ -1,0 +1,58 @@
+name: Rust CI
+
+on:
+  push:
+  pull_request:
+    branches: [master, release]
+
+jobs:
+  check:
+    name: Check
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Install stable toolchain
+        uses: actions-rs/toolchain@v1
+        with:
+          profile: minimal
+          components: rustfmt, clippy
+      - name: Run cargo check
+        run:
+          cargo check --all --all-targets
+      - name: Run cargo clippy
+        run:
+          cargo clippy --all --all-targets -- -D warnings
+      - name: Run cargo fmt
+        run:
+          cargo fmt --all -- --check
+      - uses: Swatinem/rust-cache@v1
+
+  test:
+    name: Test
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macos-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - name: Checkout code repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Install ${{ matrix.node-version }} toolchain
+        uses: actions-rs/toolchain@v1
+        with:
+          profile: minimal
+          override: true
+      # Enable it when develop swc plugin
+      # rustup target add wasm32-unknown-unknown
+      # - name: install wasm target
+      #   shell: bash
+      #   run: |
+      #     rustup target add wasm32-wasi
+      - uses: Swatinem/rust-cache@v1
+      - name: Run cargo test
+        run:
+          cargo test
