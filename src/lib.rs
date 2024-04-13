@@ -35,10 +35,23 @@ mod test {
             ..Default::default()
         }),
         |_| as_folder(super::NoSSRVisitor),
-        boo,
+        basic,
         // Input codes
         r#"<NoSSR><C /></NoSSR>"#,
         // Output codes after transformed with plugin
         r#"<NoSSR></NoSSR>"#
+    );
+
+    test_inline!(
+        Syntax::Es(EsConfig {
+            jsx: true,
+            ..Default::default()
+        }),
+        |_| as_folder(super::NoSSRVisitor),
+        child,
+        // Input codes
+        r#"<ComponentA><NoSSR><C /></NoSSR></ComponentA>"#,
+        // Output codes after transformed with plugin
+        r#"<ComponentA><NoSSR></NoSSR></ComponentA>"#
     );
 }

@@ -1,5 +1,5 @@
 use swc_core::ecma::ast::*;
-use swc_core::ecma::visit::VisitMut;
+use swc_core::ecma::visit::{VisitMut, VisitMutWith};
 
 pub struct NoSSRVisitor;
 
@@ -15,12 +15,9 @@ impl VisitMut for NoSSRVisitor {
         };
         let no_ssr_tag_name = String::from("NoSSR");
         if tag_name != no_ssr_tag_name {
+            n.visit_mut_children_with(self);
             return;
         }
-        // let null_element = JSXExprContainer {
-        //   span: DUMMY_SP,
-        //   expr: JSXExpr::Lit(Lit::Null(Null { span: DUMMY_SP })),
-        // };
         n.children = vec![];
     }
 }
