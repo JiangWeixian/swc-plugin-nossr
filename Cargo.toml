@@ -8,11 +8,11 @@ crate-type = ["cdylib"]
 
 [dependencies]
 serde = "1"
-swc_core = { version = "0.90.*", features = ["ecma_plugin_transform", "ecma_parser_typescript"] }
+swc_core = { version = "0.99.*", features = ["ecma_plugin_transform", "ecma_parser_typescript"] }
 
 [dev-dependencies]
-swc_core = { version = "0.90.*", features = ["ecma_plugin_transform", "testing_transform"] }
-testing = "0.35.22"
+swc_core = { version = "0.99.*", features = ["ecma_plugin_transform", "testing_transform"] }
+testing = "0.39.0"
 
 # .cargo/config defines few alias to build plugin.
 # cargo build-wasi generates wasm-wasi32 binary

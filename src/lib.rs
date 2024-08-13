@@ -28,9 +28,9 @@ pub fn process_transform(program: Program, _metadata: TransformPluginProgramMeta
 #[cfg(test)]
 mod test {
     use swc_core::ecma::parser::Syntax;
-    use swc_core::ecma::{parser::EsConfig, transforms::testing::test_inline, visit::as_folder};
+    use swc_core::ecma::{parser::EsSyntax, transforms::testing::test_inline, visit::as_folder};
     test_inline!(
-        Syntax::Es(EsConfig {
+        Syntax::Es(EsSyntax {
             jsx: true,
             ..Default::default()
         }),
@@ -43,7 +43,7 @@ mod test {
     );
 
     test_inline!(
-        Syntax::Es(EsConfig {
+        Syntax::Es(EsSyntax {
             jsx: true,
             ..Default::default()
         }),

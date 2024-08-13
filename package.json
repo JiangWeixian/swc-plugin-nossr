@@ -28,6 +28,9 @@
     "**/**/*.{js,ts,tsx,json,yml,yaml,md}": ["eslint --fix"],
     "**/**/*.rs": ["rustfmt --edition 2021"]
   },
+  "peerDependencies": {
+    "@swc/core": "^1.7.0"
+  },
   "devDependencies": {
     "@aiou/eslint-config": "^1.2.1",
     "@changesets/cli": "^2.26.0",
